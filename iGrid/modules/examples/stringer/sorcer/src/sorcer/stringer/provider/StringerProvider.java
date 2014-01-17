@@ -29,6 +29,9 @@ public class StringerProvider extends ServiceTasker implements Stringer,
 	public String getMutableString() {
 		return mutableString;
 	}
+	public void setMutableString(String string) {
+		mutableString = string;
+	}
 
 	/**
 	 * Constructs an instance of the SORCER stringer provider implementing
@@ -64,10 +67,9 @@ public class StringerProvider extends ServiceTasker implements Stringer,
 				strResult = makeConcatenation(string1, string2);
 			}
 
-			logger.info(selector + " result: \n" + result);
+			logger.info(selector + " result: \n" + strResult);
 			String outputMessage = "processed by " + getHostname();			
 			context.putValue(ServiceStringer.CONCATENATION, strResult);
-
 
 		} catch (Exception ex) {
 			throw new StringerException(ex);

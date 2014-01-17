@@ -41,23 +41,10 @@ public class StringerTester {
 
 	private NetTask getConcatenationTask() throws Exception {
 		ServiceContext context = new ServiceContext(ServiceStringer.CONCATENATION);
-		context.putValue(ServiceStringer.CONCATENATION, "alaMaKota");
-		context.putValue(ServiceStringer.CONCATENATION, Context.none);
+		context.putValue(ServiceStringer.CONCATENATION + CPS + ServiceStringer.STRING1, "alaMaKota");
+		
 		NetSignature signature = new NetSignature("makeConcatenation", ServiceStringer.class, Sorcer.getActualName("Stringer1"));
 		NetTask task = new NetTask("stringer-concatenation", signature);
-		task.setContext(context);
-		return task;
-	}
-	
-	private NetTask getDepositTask() throws Exception {
-		ServiceContext context = new ServiceContext(ServiceStringer.ACCOUNT);
-		context.putValue(ServiceStringer.DEPOSIT + CPS + ServiceStringer.AMOUNT,
-				new Money(10000)); // $100.00
-		context.putValue(ServiceStringer.BALANCE + CPS + ServiceStringer.AMOUNT,
-				Context.none);
-		NetSignature signature = new NetSignature("makeDeposit",
-				ServiceStringer.class, Sorcer.getActualName("Stringer1"));
-		NetTask task = new NetTask("account-deposit", signature);
 		task.setContext(context);
 		return task;
 	}

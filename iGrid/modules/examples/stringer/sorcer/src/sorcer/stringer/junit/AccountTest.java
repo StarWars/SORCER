@@ -18,9 +18,9 @@ import java.util.logging.Logger;
 
 import org.junit.Test;
 
-import sorcer.account.provider.Account;
-import sorcer.account.provider.Money;
-import sorcer.account.provider.ServiceAccount;
+//import sorcer.account.provider.Account;
+//import sorcer.account.provider.Money;
+//import sorcer.account.provider.ServiceAccount;
 import sorcer.core.SorcerConstants;
 import sorcer.service.Job;
 import sorcer.service.ServiceExertion;
@@ -32,7 +32,7 @@ import sorcer.util.Sorcer;
  */
 @SuppressWarnings("unchecked")
 public class AccountTest implements SorcerConstants {
-
+/*
 	private final static Logger logger = Logger
 			.getLogger(AccountTest.class.getName());
 
@@ -134,5 +134,5 @@ public class AccountTest implements SorcerConstants {
 		
 		logger.info("Account1 balance: " + value(balance));
 	}
-
+*/
 }

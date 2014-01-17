@@ -22,18 +22,13 @@ public class ServiceStringerImpl implements Stringer, ServiceStringer, SorcerCon
 
 	private static Logger logger = Log.getTestLog();
 
-	private String mutableString = new String();
-
-	public Context getBalance(Context context) throws RemoteException {
-		return process(context, ServiceStringer.BALANCE);
-	}
-	
-	public Context makeConcatenation(Context context) throws RemoteException {
+	public Context makeConcatenation(Context context) throws RemoteException, StringerException {
 		return process(context, ServiceStringer.CONCATENATION);
 	}
-
+	public ServiceStringerImpl(){
+	}
 	private Context process(Context context, String selector)
-			throws RemoteException {
+			throws RemoteException, StringerException {
 		try {
 			logger.info("input context: \n" + context);
 
@@ -45,7 +40,7 @@ public class ServiceStringerImpl implements Stringer, ServiceStringer, SorcerCon
 				strResult = makeConcatenation(string1, string2);
 			}
 
-			logger.info(selector + " result: \n" + result);
+			logger.info(selector + " result: \n" + strResult);
 			String outputMessage = "processed by " + getHostname();			
 			context.putValue(ServiceStringer.CONCATENATION, strResult);
 
@@ -54,23 +49,11 @@ public class ServiceStringerImpl implements Stringer, ServiceStringer, SorcerCon
 		}
 		return context;
 	}
-
-	public ServiceStringerImpl(String startingString) throws RemoteException {
-		mutableString = startingString;
+	
+	public String makeConcatenation(String string1, String string2){
+		return string1 + string2;
 	}
 	
-	public String makeConcatenation(String string1, String string2) throws RemoteException {
-		setMutableString(getMutableString() + string1 + string2);
-		return getMutableString();
-	}
-	
-	public String getMutableString() throws RemoteException {
-		return mutableString;
-	}
-	public void setMutableString(String mutableString) {
-		this.mutableString = mutableString;
-	}
-
 	private Provider partner;
 
 	private Administrable admin;
@@ -91,7 +74,7 @@ public class ServiceStringerImpl implements Stringer, ServiceStringer, SorcerCon
 	 */
 	public Exertion service(Exertion exertion, Transaction transaction)
 			throws RemoteException, ExertionException, TransactionException {
-		System.out.println("Exertion->service->servicestringerimpl.java\n\n\n");
+		System.out.println("exertion service - service string implementation\n\n\n");
 		return partner.service(exertion, null);
 	}
 
@@ -121,5 +104,4 @@ public class ServiceStringerImpl implements Stringer, ServiceStringer, SorcerCon
 	private String getHostname() throws UnknownHostException {
 		return InetAddress.getLocalHost().getHostName();
 	}
-
 }

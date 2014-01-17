@@ -53,14 +53,18 @@ public class StringerUI extends JPanel {
 	protected void createUI() {
 		setLayout(new BorderLayout());
 		add(buildStringerPanel(), BorderLayout.CENTER);
-		resetBalanceField();
 	}
 
 	private JPanel buildStringerPanel() {
 		JPanel panel = new JPanel();
-
 		return panel;
 	}
+
+	private String readTextField(JTextField moneyField) {
+
+		return null;
+	}
+
 
 	/**
 	 * Returns a service UI descriptorfor this service. Usally this method is
@@ -75,7 +79,7 @@ public class StringerUI extends JPanel {
 			uiDesc = UIDescriptorFactory.getUIDescriptor(MainUI.ROLE,
 					new UIComponentFactory(new URL[] { new URL(Sorcer
 							.getWebsterUrl()
-							+ "/accout-ui.jar") }, StringerUI.class.getName()));
+							+ "/stringer-ui.jar") }, StringerUI.class.getName()));
 		} catch (Exception ex) {
 			logger.throwing(StringerUI.class.getName(), "getUIDescriptor", ex);
 		}

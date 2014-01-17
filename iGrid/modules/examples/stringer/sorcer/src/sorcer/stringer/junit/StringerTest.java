@@ -1,4 +1,4 @@
-package sorcer.account.junit;
+package sorcer.stringer.junit;
 
 import static sorcer.eo.operator.args;
 import static sorcer.eo.operator.context;
@@ -18,9 +18,9 @@ import java.util.logging.Logger;
 
 import org.junit.Test;
 
-//import sorcer.account.provider.Account;
-//import sorcer.account.provider.Money;
-//import sorcer.account.provider.ServiceAccount;
+import sorcer.stringer.provider.Stringer;
+//import sorcer.stringer.provider.Money;
+import sorcer.stringer.provider.ServiceStringer;
 import sorcer.core.SorcerConstants;
 import sorcer.service.Job;
 import sorcer.service.ServiceExertion;
@@ -31,25 +31,34 @@ import sorcer.util.Sorcer;
  * @author Mike Sobolewski
  */
 @SuppressWarnings("unchecked")
-public class AccountTest implements SorcerConstants {
-/*
+public class StringerTest implements SorcerConstants {
+
 	private final static Logger logger = Logger
-			.getLogger(AccountTest.class.getName());
+			.getLogger(StringerTest.class.getName());
 
 	static {
 		ServiceExertion.debug = true;
 		System.setProperty("java.security.policy", Sorcer.getHome()
 				+ "/configs/policy.all");
 		System.setSecurityManager(new RMISecurityManager());
-		Sorcer.setCodeBase(new String[] { "jeri-account-dl.jar" });
+		Sorcer.setCodeBase(new String[] { "jeri-stringer-dl.jar" });
 		System.out.println("CLASSPATH :" + System.getProperty("java.class.path"));
 		System.setProperty("java.protocol.handler.pkgs", "sorcer.util.url|org.rioproject.url");
 	}
+	@Test
+	public void stringer1ConcatTest() throws Exception {
+		Task t1 = task("t1",
+				sig("makeConcatenation", ServiceStringer.class, "Stringer1"),
+				context("concatenation1", result("concatenation/amount")));
+
+		logger.info("t1 value: " + value(t1));
+	}
 	
+	/*	
 	@Test
 	public void accout1BalanceTest() throws Exception {
 		Task t1 = task("t1",
-				sig("getBalance", ServiceAccount.class, "Account1"),
+				sig("getBalance", ServiceStringer.class, "Stringer1"),
 				context("balance1", result("balance/amount")));
 
 		logger.info("t1 value: " + value(t1));
@@ -58,7 +67,7 @@ public class AccountTest implements SorcerConstants {
 	@Test
 	public void accout1DepositTest() throws Exception {
 		Task t2 = task("t2",
-				sig("makeDeposit", ServiceAccount.class, "Account1"),
+				sig("makeDeposit", ServiceStringer.class, "Stringer1"),
 				context("deposit", in("deposit/amount", new Money(10000))));
 		t2 = exert(t2);
 		logger.info("t1 context: " + context(t2));
@@ -68,7 +77,7 @@ public class AccountTest implements SorcerConstants {
 	@Test
 	public void accout2BalanceTest() throws Exception {
 		Task t3 = task("t3",
-				sig("getBalance", ServiceAccount.class, "Account2"),
+				sig("getBalance", ServiceStringer.class, "Stringer2"),
 				context("balance2", result("balance/amount")));
 		logger.info("t3 value: " + value(t3));
 	}
@@ -76,7 +85,7 @@ public class AccountTest implements SorcerConstants {
 	@Test
 	public void accout2WithdrawalTest() throws Exception {
 		Task t4 = task("t4",
-				sig("makeWithdrawal", ServiceAccount.class, "Account2"),
+				sig("makeWithdrawal", ServiceStringer.class, "Stringer2"),
 				context("withdrawl", in("withdrawal/amount", new Money(10000))));
 		
 		t4 = exert(t4);
@@ -87,17 +96,17 @@ public class AccountTest implements SorcerConstants {
 	@Test
 	public void transferJobTest() throws Exception {
 		Task t1 = task("t1",
-				sig("getBalance", ServiceAccount.class, "Account1"));
+				sig("getBalance", ServiceStringer.class, "Stringer1"));
 		
 		Task t2 = task("t2",
-				sig("makeDeposit", ServiceAccount.class, "Account1"),
+				sig("makeDeposit", ServiceStringer.class, "Stringer1"),
 				context("deposit", in("deposit/amount", new Money(10000))));
 		
 		Task t3 = task("t3",
-				sig("getBalance", ServiceAccount.class, "Account2"));
+				sig("getBalance", ServiceStringer.class, "Stringer2"));
 		
 		Task t4 = task("t4",
-				sig("makeWithdrawal", ServiceAccount.class, "Account2"),
+				sig("makeWithdrawal", ServiceStringer.class, "Stringer2"),
 				context("withdrawl", in("withdrawal/amount", new Money(10000)), 
 						result("balance/amount")));
 		
@@ -110,17 +119,17 @@ public class AccountTest implements SorcerConstants {
 	public void parmetricBalanceTest() throws Exception {
 		Task balance = task(
 				"balance",
-				sig("getBalance", Account.class, "Account1"),
+				sig("getBalance", Stringer.class, "Stringer1"),
 					result("balance/amount"));
 
-		logger.info("Account1 balance: " + value(balance));
+		logger.info("Stringer1 balance: " + value(balance));
 	}
 	
 	@Test
 	public void parmetricDepositTest() throws Exception {
 		Task deposit = task(
 				"deposit",
-				sig("makeDeposit", Account.class, "Account1"),
+				sig("makeDeposit", Stringer.class, "Stringer1"),
 				context(parameterTypes(Money.class), args(new Money(10000)),
 					result("balance/amount")));
 
@@ -129,10 +138,10 @@ public class AccountTest implements SorcerConstants {
 		
 		Task balance = task(
 				"balance",
-				sig("getBalance", Account.class, "Account1"),
+				sig("getBalance", Stringer.class, "Stringer1"),
 					result("balance/amount"));
 		
-		logger.info("Account1 balance: " + value(balance));
+		logger.info("Stringer1 balance: " + value(balance));
 	}
 */
 }

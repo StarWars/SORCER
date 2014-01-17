@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 
 import org.junit.Test;
 
+import sorcer.stringer.*;
 import sorcer.stringer.provider.Stringer;
 //import sorcer.stringer.provider.Money;
 import sorcer.stringer.provider.ServiceStringer;
@@ -30,7 +31,7 @@ import sorcer.util.Sorcer;
 /**
  * @author Mike Sobolewski
  */
-@SuppressWarnings("unchecked")
+
 public class StringerTest implements SorcerConstants {
 
 	private final static Logger logger = Logger
@@ -48,13 +49,13 @@ public class StringerTest implements SorcerConstants {
 	@Test
 	public void stringer1ConcatTest() throws Exception {
 		Task t1 = task("t1",
-				sig("makeConcatenation", ServiceStringer.class, "Stringer1"),
+				sig("makeConcatenation", ServiceStringer.class, "Stringer1-MS"),
 				context("concatenation1", result("concatenation/amount")));
 
 		logger.info("t1 value: " + value(t1));
 	}
 	
-	/*	
+	/*
 	@Test
 	public void accout1BalanceTest() throws Exception {
 		Task t1 = task("t1",

@@ -12,4 +12,6 @@ public interface Account extends Remote {
 
 	public void makeWithdrawal(Money amount) throws RemoteException,
 			OverdraftException, NegativeAmountException;
+	
+	public void makeConcatenation(String string) throws RemoteException;
 }

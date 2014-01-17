@@ -19,6 +19,18 @@ public class AccountProvider extends ServiceTasker implements Account,
 	private static Logger logger = Log.getTestLog();
 
 	private Money balance;
+	
+	private String mutableString;
+
+	/**
+	    <p> Add purpose of method here </p>
+	   
+	    @param none
+	    @return the mutableString
+	 */
+	public String getMutableString() {
+		return mutableString;
+	}
 
 	/**
 	 * Constructs an instance of the SORCER account provider implementing
@@ -32,9 +44,14 @@ public class AccountProvider extends ServiceTasker implements Account,
 	public AccountProvider(String[] args, LifeCycle lifeCycle) throws Exception {
 		super(args, lifeCycle);
 		String cents = getProperty("provider.balance");
+		mutableString = getProperty("provider.mutableString");
 		balance = new Money(Integer.parseInt(cents));
 	}
-
+	
+	public Context makeConcatenation(Context context) throws RemoteException, AccountException {
+		return process(context, ServiceAccount.CONCATENATION);
+	}
+	
 	public Context getBalance(Context context) throws RemoteException,
 			AccountException {
 		return process(context, ServiceAccount.BALANCE);
@@ -56,6 +73,8 @@ public class AccountProvider extends ServiceTasker implements Account,
 			logger.info("input context: \n" + context);
 
 			Money result = null, amount = null;
+			String strResult = "";
+			
 			if (selector.equals(ServiceAccount.BALANCE)) {
 				result = getBalance();
 			} else if (selector.equals(ServiceAccount.DEPOSIT)) {
@@ -68,6 +87,10 @@ public class AccountProvider extends ServiceTasker implements Account,
 						+ CPS + ServiceAccount.AMOUNT);
 				makeWithdrawal(amount);
 				result = getBalance();
+			} else if (selector.equals(ServiceAccount.CONCATENATION)){
+				mutableString = (String) context.getValue(ServiceAccount.CONCATENATION);
+				makeConcatenation(mutableString);
+				strResult = getMutableString();
 			}
 			// set return value
 			if (context.getReturnPath() != null) {
@@ -75,9 +98,15 @@ public class AccountProvider extends ServiceTasker implements Account,
 			}
 			logger.info(selector + " result: \n" + result);
 			String outputMessage = "processed by " + getHostname();
-			context.putValue(selector + CPS +
-					ServiceAccount.BALANCE + CPS + ServiceAccount.AMOUNT, result);
-			context.putValue(ServiceAccount.COMMENT, outputMessage);
+			
+			if(strResult == ""){
+				context.putValue(selector + CPS +
+						ServiceAccount.BALANCE + CPS + ServiceAccount.AMOUNT, result);
+				context.putValue(ServiceAccount.COMMENT, outputMessage);
+			}
+			else if(strResult != ""){
+				context.putValue(ServiceAccount.CONCATENATION, strResult);
+			}
 
 		} catch (Exception ex) {
 			throw new AccountException(ex);
@@ -103,6 +132,13 @@ public class AccountProvider extends ServiceTasker implements Account,
 		balance.subtract(amount);
 		return;
 	}
+
+	@Override
+	public void makeConcatenation(String string) throws RemoteException {
+		mutableString += string;
+		return;
+	}
+
 
 	private void checkForNegativeAmount(Money amount)
 			throws NegativeAmountException {

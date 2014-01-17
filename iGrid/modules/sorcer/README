@@ -29,7 +29,7 @@ The core SORCER service include:
     a generic service executing a service task by calling a system call on 
     a provided command (executable).
 10. Tasker iGrid/modules/sorcer/src/sorcer/core/grid/provider/tasker -
-    a generic service (compute service) execiting any service task 
+    a generic service (compute service) executing any service task 
     with is own service method - inserted by requestor its dynamic code.
 11. Grider iGrid/modules/sorcer/src/sorcer/core/grid/provider/grider -
 	a service grid dispatcher that coordinates job excution with taskers, 

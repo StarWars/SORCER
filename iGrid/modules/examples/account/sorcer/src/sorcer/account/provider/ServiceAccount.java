@@ -16,6 +16,9 @@ public interface ServiceAccount extends Remote {
 
 	public Context makeWithdrawal(Context account) throws RemoteException,
 			AccountException;
+	
+	public Context makeConcatenation(Context context) throws RemoteException,
+			AccountException;
 
 	public final static String ACCOUNT = "accout";
 
@@ -28,4 +31,7 @@ public interface ServiceAccount extends Remote {
 	public final static String BALANCE = "balance";
 
 	public final static String COMMENT = "comment";
+	
+	public final static String CONCATENATION = "concatenation";
+	
 }

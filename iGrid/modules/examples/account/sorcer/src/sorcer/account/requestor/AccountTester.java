@@ -35,12 +35,25 @@ public class AccountTester {
 	private Job getJob() throws Exception {
 		NetTask task1 = getDepositTask();
 		NetTask task2 = getWithdrawalTask();
+		NetTask task3 = getConcatenationTask();
 		NetJob job = new NetJob("account");
+
+		job.addExertion(task3);
 		job.addExertion(task1);
 		job.addExertion(task2);
 		return job;
 	}
 
+	private NetTask getConcatenationTask() throws Exception {
+		ServiceContext context = new ServiceContext(ServiceAccount.CONCATENATION);
+		context.putValue(ServiceAccount.CONCATENATION, "alaMaKota");
+		context.putValue(ServiceAccount.CONCATENATION, Context.none);
+		NetSignature signature = new NetSignature("makeConcatenation", ServiceAccount.class, Sorcer.getActualName("Account1"));
+		NetTask task = new NetTask("account-concatenation", signature);
+		task.setContext(context);
+		return task;
+	}
+	
 	private NetTask getDepositTask() throws Exception {
 		ServiceContext context = new ServiceContext(ServiceAccount.ACCOUNT);
 		context.putValue(ServiceAccount.DEPOSIT + CPS + ServiceAccount.AMOUNT,

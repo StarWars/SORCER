@@ -23,6 +23,7 @@ public class ServiceAccountImpl implements Account, ServiceAccount, SorcerConsta
 	private static Logger logger = Log.getTestLog();
 
 	private Money balance;
+	private String mutableString;
 
 	public Context getBalance(Context context) throws RemoteException {
 		return process(context, ServiceAccount.BALANCE);
@@ -35,6 +36,10 @@ public class ServiceAccountImpl implements Account, ServiceAccount, SorcerConsta
 	public Context makeWithdrawal(Context context) throws RemoteException {
 		return process(context, ServiceAccount.WITHDRAWAL);
 	}
+	
+	public Context makeConcatenation(Context context) throws RemoteException {
+		return process(context, ServiceAccount.CONCATENATION);
+	}
 
 	private Context process(Context context, String selector)
 			throws RemoteException {
@@ -42,6 +47,8 @@ public class ServiceAccountImpl implements Account, ServiceAccount, SorcerConsta
 			logger.info("input context: \n" + context);
 
 			Money result = null, amount = null;
+			String strResult = "";
+			
 			if (selector.equals(ServiceAccount.BALANCE)) {
 				result = getBalance();
 			} else if (selector.equals(ServiceAccount.DEPOSIT)) {
@@ -54,13 +61,21 @@ public class ServiceAccountImpl implements Account, ServiceAccount, SorcerConsta
 						+ CPS + ServiceAccount.AMOUNT);
 				makeWithdrawal(amount);
 				result = getBalance();
+			} else if (selector.equals(ServiceAccount.CONCATENATION)){
+				strResult = (String) context.getValue(ServiceAccount.CONCATENATION);
+				makeConcatenation(strResult);
+				strResult =  getMutableString();
 			}
 
 			logger.info(selector + " result: \n" + result);
+			if(strResult == ""){
 			String outputMessage = "processed by " + getHostname();
 			context.putValue(
 					ServiceAccount.BALANCE + CPS + ServiceAccount.AMOUNT, result);
 			context.putValue(ServiceAccount.COMMENT, outputMessage);
+			}else if(strResult != ""){
+				context.putValue(ServiceAccount.CONCATENATION, strResult);
+			}
 
 		} catch (Exception ex) {
 			// ContextException, UnknownHostException
@@ -72,9 +87,15 @@ public class ServiceAccountImpl implements Account, ServiceAccount, SorcerConsta
 	public ServiceAccountImpl(Money startingBalance) throws RemoteException {
 		balance = startingBalance;
 	}
+	public ServiceAccountImpl(String startingString) throws RemoteException {
+		mutableString = startingString;
+	}
 
 	public Money getBalance() throws RemoteException {
 		return balance;
+	}
+	public String getMutableString() throws RemoteException {
+		return mutableString;
 	}
 
 	public void makeDeposit(Money amount) throws RemoteException,
@@ -90,6 +111,11 @@ public class ServiceAccountImpl implements Account, ServiceAccount, SorcerConsta
 		checkForOverdraft(amount);
 		balance.subtract(amount);
 		return;
+	}
+	public void makeConcatenation(String string) throws RemoteException {
+		mutableString += string;
+		return;
+		
 	}
 
 	private void checkForNegativeAmount(Money amount)
@@ -157,4 +183,5 @@ public class ServiceAccountImpl implements Account, ServiceAccount, SorcerConsta
 	private String getHostname() throws UnknownHostException {
 		return InetAddress.getLocalHost().getHostName();
 	}
+
 }

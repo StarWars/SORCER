@@ -4,11 +4,23 @@ import java.rmi.RemoteException;
 
 public class AccountImpl implements Account {
 	private Money balance;
+	private String mutableString;
 
 	public AccountImpl(Money startingBalance) throws RemoteException {
 		balance = startingBalance;
 	}
+	
+	/*NEW STRING*/
+	public AccountImpl(String startingString) throws RemoteException {
+		setMutableString(startingString);
+	}
 
+	@Override
+	public void makeConcatenation(String string) throws RemoteException {
+		setMutableString(getMutableString() + string);
+	}
+	/***********/
+	
 	public Money getBalance() throws RemoteException {
 		return balance;
 	}
@@ -42,5 +54,25 @@ public class AccountImpl implements Account {
 			throw new OverdraftException(false);
 		}
 		return;
+	}
+
+	/**
+	    <p> Add purpose of method here </p>
+	   
+	    @param none
+	    @return the mutableString
+	 */
+	public String getMutableString() {
+		return mutableString;
+	}
+
+	/**   
+	    <p> Add purpose of method here </p>
+	
+	    @param mutableString the mutableString to set
+	    @return nothing  
+	 */
+	public void setMutableString(String mutableString) {
+		this.mutableString = mutableString;
 	}
 }

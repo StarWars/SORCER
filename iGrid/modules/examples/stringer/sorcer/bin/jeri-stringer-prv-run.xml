@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!-- 
+Replace "provider.name" with your provider name and specify property value for "provider.class."
+Also you might need to adjust the classpath (provider.classpath) for your provider 
+-->
+
+<project name="run account1" default="run.stringer" basedir=".">
+
+	<!-- system environment variables -->
+	<property environment="env" />
+	<import file="${env.IGRID_HOME}/modules/common-run.xml" />
+	<echo message="IGRID_HOME: ${iGrid.home}" />
+
+	<!-- set property values here -->
+	<property name="provider.name" value="stringer-requestor" />
+	<property name="provider.class" value="sorcer.stringer.requestor.StringerProvider" />
+	
+	<path id="project.classpath">
+		<pathelement location="${sorcer.lib}/${requestor.name}.jar" />
+		<pathelement location="${sorcer.lib}/sorcer-prv.jar" />
+		<path refid="jini.path" />
+	</path>
+
+	<!-- start provider -->
+	<target name="run.stringer">
+		<java classname="${requestor.class}" fork="yes">
+			<classpath refid="project.classpath" />
+			<sysproperty key="java.util.logging.config.file" value="${iGrid.home}/configs/sorcer.logging" />
+			<sysproperty key="java.security.policy" value="../policy/${requestor.name}-req.policy" />
+			<sysproperty key="java.rmi.server.codebase" value="${provider.webster.url}/${requestor.name}-dl.jar" />
+			<sysproperty key="sorcer.env.file" value="${iGrid.home}/configs/sorcer.env" />
+		</java>
+	</target>
+
+</project>

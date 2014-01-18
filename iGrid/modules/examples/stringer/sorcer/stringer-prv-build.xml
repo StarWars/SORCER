@@ -43,6 +43,8 @@
 
 	<patternset id="ant.jars">
 		<include name="StringerSetOneProvider.jar" />
+		<include name="StringerSetTwoProvider.jar" />
+		<include name="StringerSetThreeProvider.jar" />
 	</patternset>
 
 	<path id="project.classpath">
@@ -62,7 +64,7 @@
 	<!-- No RMI stubs are required for JERI type of providers -->
 	<target name="compile" depends="compileSources" />
 	<target name="jars" depends="stringer, copy-run-prv-files" />
-	<target name="stringer" depends="StringerSetOneProvider.jar" />
+	<target name="stringer" depends="StringerSetOneProvider.jar, StringerSetTwoProvider.jar, StringerSetThreeProvider.jar" />
 	<target name="all" depends="compile, jars" />
 
 	<target name="StringerSetOneProvider.jar">
@@ -74,6 +76,24 @@
 					<fileset dir="${iGrid.home}/configs" includes="sorcer/util/sorcer.env" />
 				</classdepandjar>
 			</target>
+	<target name="StringerSetTwoProvider.jar">
+					<classdepandjar jarfile="${sorcer.lib}/StringerSetTwoProvider.jar" files="true">
+						<classpath refid="project.classpath" />
+						<in name="sorcer.stringer.provider" />
+						<topclass name="sorcer.stringer.provider.StringerSetTwoProvider" />
+						<topclass name="sorcer.stringer.provider.StringerSetTwo" />
+						<fileset dir="${iGrid.home}/configs" includes="sorcer/util/sorcer.env" />
+					</classdepandjar>
+				</target>
+	<target name="StringerSetThreeProvider.jar">
+						<classdepandjar jarfile="${sorcer.lib}/StringerSetThreeProvider.jar" files="true">
+							<classpath refid="project.classpath" />
+							<in name="sorcer.stringer.provider" />
+							<topclass name="sorcer.stringer.provider.StringerSetThreeProvider" />
+							<topclass name="sorcer.stringer.provider.StringerSetThree" />
+							<fileset dir="${iGrid.home}/configs" includes="sorcer/util/sorcer.env" />
+						</classdepandjar>
+					</target>
 	
 	<target name="copy-run-prv-files">
 		<mkdir dir="${iGrid.home}/bin/examples/${module.run.dir}/configs" />

@@ -43,16 +43,23 @@ public class StringerTestPro implements SorcerConstants {
 	@Test
 	public void addTest() throws Exception {
 		
-		logger.info("Test stringer set one'a");
+		Task add = task("UpperCaseTask", sig("toUpperCase", StringerSetOneProvider.class),
+                context("toUpperCase", in("toupper/string1", "alamakota")));
+
+		add = exert(add);
 		
-		Task t1 = task(
-				"t1",
-				sig("toUpperCase", StringerSetOneProvider.class, "StringerSetOneProvider"),
-				context("toupper", in("toupper/string1", "kuku")));
-		logger.info("Task1: "+t1.getContext());
-		t1 = exert(t1);
-		logger.info("t1 context: "+context(t1));
-		logger.info("t1 value: "+get(t1, "toupper/string1/result"));
+		logger.info("SUM: " +value(context(add), "toUpperCase"));
+		
+//		logger.info("Test stringer set one'a");
+//		
+//		Task t1 = task(
+//				"t1",
+//				sig("toUpperCase", StringerSetOneProvider.class, "StringerSetOneProvider"),
+//				context("toupper", in("toupper/string1", "kuku")));
+//		logger.info("Task1: "+t1.getContext());
+//		t1 = exert(t1);
+//		logger.info("t1 context: "+context(t1));
+//		logger.info("t1 value: "+get(t1, "toupper/string1/result"));
 		/*
 		Task t2 = task(
 				"ToLower",

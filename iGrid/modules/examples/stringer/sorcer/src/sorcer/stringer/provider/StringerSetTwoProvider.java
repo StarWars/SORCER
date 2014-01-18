@@ -34,7 +34,7 @@ public class StringerSetTwoProvider extends ServiceTasker implements StringerSet
 			ContextException {
 		return doIt(context, StringerSetTwo.SPACESPLIT);
 	}
-	public Context getSmiley(Context context) throws RemoteException,
+	public Context addSmiley(Context context) throws RemoteException,
 			ContextException {
 		return doIt(context, StringerSetTwo.SMILEY);
 	}
@@ -86,5 +86,6 @@ public class StringerSetTwoProvider extends ServiceTasker implements StringerSet
 	private String getHostname() throws UnknownHostException {
 		return InetAddress.getLocalHost().getHostName();
 	}
+
 
 }

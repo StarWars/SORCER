@@ -53,7 +53,7 @@ public class StringerSetThreeProvider extends ServiceTasker implements StringerS
 				
 				StringBuilder builder = new StringBuilder();
 				for(int i=strResult.length()-1;i>=0;i--){
-					builder.append(strResult[i]);
+					builder.append(strResult.charAt(i));
 				}
 				
 				strResult = builder.toString();
@@ -65,7 +65,7 @@ public class StringerSetThreeProvider extends ServiceTasker implements StringerS
 				
 				StringBuilder builder = new StringBuilder();
 				for(int i=0;i<strResult.length();i++){
-					builder.append(strResult[i]+",");
+					builder.append(strResult.charAt(i)+",");
 				}
 				
 				strResult = builder.toString();
@@ -73,7 +73,7 @@ public class StringerSetThreeProvider extends ServiceTasker implements StringerS
 				strResult = (String) context.getValue(StringerSetThree.MAKEHALF + CPS
 						+ StringerSetThree.STRING3);
 				
-				String strResult = strResult.substring(0,strResult.length());
+				strResult = strResult.substring(0,strResult.length());
 				
 			} 
 			// set return value

@@ -83,7 +83,6 @@ public class StringerSetOneProvider extends ServiceTasker implements StringerSet
 			logger.info(selector + " result: \n" + strResult);
 			
 			// np. TOUPPER/STRING1/RESULT : wartosc zmiennej strResult
-			// u calkow jest tylko SELECTOR
 			context.putValue(selector + CPS +
 					StringerSetOne.STRING1 + CPS + StringerSetOne.RESULT, strResult);
 		

@@ -83,7 +83,6 @@ public class StringerSetThreeProvider extends ServiceTasker implements StringerS
 			logger.info(selector + " result: \n" + strResult);
 			
 			// np. TOUPPER/STRING1/RESULT : wartosc zmiennej strResult
-			// u calkow jest tylko SELECTOR
 			context.putValue(selector + CPS +
 					StringerSetThree.STRING3 + CPS + StringerSetThree.RESULT, strResult);
 		

@@ -19,9 +19,7 @@ import java.util.logging.Logger;
 import org.junit.Test;
 
 import sorcer.stringer.*;
-import sorcer.stringer.provider.Stringer;
 //import sorcer.stringer.provider.Money;
-import sorcer.stringer.provider.ServiceStringer;
 import sorcer.core.SorcerConstants;
 import sorcer.service.Job;
 import sorcer.service.ServiceExertion;
@@ -46,14 +44,7 @@ public class StringerTest implements SorcerConstants {
 		System.out.println("CLASSPATH :" + System.getProperty("java.class.path"));
 		System.setProperty("java.protocol.handler.pkgs", "sorcer.util.url|org.rioproject.url");
 	}
-	@Test
-	public void stringer1ConcatTest() throws Exception {
-		Task t1 = task("t1",
-				sig("makeConcatenation", ServiceStringer.class, "Stringer1-MS"),
-				context("concatenation1", result("concatenation/amount")));
 
-		logger.info("t1 value: " + value(t1));
-	}
 	
 	/*
 	@Test

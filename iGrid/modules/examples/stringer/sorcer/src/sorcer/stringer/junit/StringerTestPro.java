@@ -50,7 +50,7 @@ public class StringerTestPro implements SorcerConstants {
 				sig("toUpperCase", StringerSetOneProvider.class, "StringerSetOneProvider"),
 				context("toupper", in("toupper/string1", "kuku")));
 		logger.info("Task1: "+t1.getContext());
-		t1 = (Task) value(t1);
+		t1 = exert(t1);
 		logger.info("t1 context: "+context(t1));
 		logger.info("t1 value: "+get(t1, "toupper/string1/result"));
 		/*

@@ -45,10 +45,7 @@
 		<include name="partner-stringer-cc.jar" />
 		<include name="jeri-stringer.jar" />
 		<include name="jeri-stringer-dl.jar" />
-		<include name="stringer-ui.jar" />
-		<include name="stringer-mvc-ui.jar" />
-		<include name="stringer-requestor.jar" />
-		<include name="stringer-requestor-dl.jar" />
+		<include name="StringerSetOneProvider.jar" />
 	</patternset>
 
 	<path id="project.classpath">
@@ -68,26 +65,18 @@
 	<!-- No RMI stubs are required for JERI type of providers -->
 	<target name="compile" depends="compileSources" />
 	<target name="jars" depends="stringer, copy-run-prv-files" />
-	<target name="stringer" depends="jeri-stringer.jar, jeri-stringer-dl.jar, stringer-ui.jar, stringer-mvc-ui.jar, stringer-requestor.jar, stringer-requestor-dl.jar" />
+	<target name="stringer" depends="jeri-stringer.jar, jeri-stringer-dl.jar, StringerSetOneProvider.jar" />
 	<target name="all" depends="prepare, jars" />
 
-	<target name="stringer-requestor.jar">
-		<classdepandjar jarfile="${sorcer.lib}/stringer-requestor.jar" files="true">
-			<classpath refid="project.classpath" />
-			<in name="sorcer.stringer" />
-			<topclass name="sorcer.stringer.requestor.StringerTester" />
-			<fileset dir="${iGrid.home}/configs" includes="sorcer/util/sorcer.env" />
-		</classdepandjar>
-	</target>
-
-	<target name="stringer-requestor-dl.jar">
-		<classdepandjar jarfile="${sorcer.lib}/stringer-requestor-dl.jar" files="true">
-			<classpath refid="project.classpath" />
-			<in name="sorcer.stringer.provider" />
-			<topclass name="sorcer.stringer.provider.StringerImpl" />
-			<topclass name="sorcer.stringer.provider.ServiceStringer" />
-		</classdepandjar>
-	</target>
+	<target name="StringerSetOneProvider.jar">
+				<classdepandjar jarfile="${sorcer.lib}/StringerSetOneProvider.jar" files="true">
+					<classpath refid="project.classpath" />
+					<in name="sorcer.stringer.provider" />
+					<topclass name="sorcer.stringer.provider.StringerSetOneProvider" />
+					<topclass name="sorcer.stringer.provider.StringerSetOne" />
+					<fileset dir="${iGrid.home}/configs" includes="sorcer/util/sorcer.env" />
+				</classdepandjar>
+			</target>
 
 	<target name="jeri-stringer.jar" depends="compile">
 		<classdepandjar jarfile="${sorcer.lib}/jeri-stringer.jar" files="true" debug="false">
@@ -111,26 +100,6 @@
 			<topclass name="sorcer.stringer.provider.Stringer" />
 			<topclass name="sorcer.stringer.provider.ServiceStringer" />
 			<fileset refid="icons" />
-		</classdepandjar>
-	</target>
-
-	<target name="stringer-ui.jar">
-		<classdepandjar jarfile="${sorcer-dl.lib}/stringer-ui.jar" files="true">
-			<classpath refid="project.classpath" />
-			<in name="sorcer.stringer" />
-			<in name="sorcer.ui" />
-			<topclass name="sorcer.stringer.provider.ui.StringerUI" />
-			<topclass name="sorcer.ui.serviceui.UIComponentFactory" />
-		</classdepandjar>
-	</target>
-
-	<target name="stringer-mvc-ui.jar">
-		<classdepandjar jarfile="${sorcer-dl.lib}/stringer-mvc-ui.jar" files="true">
-			<classpath refid="project.classpath" />
-			<in name="sorcer.stringer" />
-			<in name="sorcer.ui" />
-			<topclass name="sorcer.stringer.provider.ui.mvc.StringerView" />
-			<topclass name="sorcer.ui.serviceui.UIComponentFactory" />
 		</classdepandjar>
 	</target>
 

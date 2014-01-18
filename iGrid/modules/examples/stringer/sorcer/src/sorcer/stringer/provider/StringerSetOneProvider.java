@@ -50,7 +50,7 @@ public class StringerSetOneProvider extends ServiceTasker implements StringerSet
 	private Context doIt(Context context, String selector) throws RemoteException, ContextException {
 		try {
 			String strResult = "";
-			
+			logger.info("########");
 			if (selector.equals(StringerSetOne.TOUPPER)) {
 				strResult = (String) context.getValue(StringerSetOne.TOUPPER + CPS
 						+ StringerSetOne.STRING1);

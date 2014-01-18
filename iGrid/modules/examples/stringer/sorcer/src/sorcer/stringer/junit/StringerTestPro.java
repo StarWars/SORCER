@@ -8,6 +8,7 @@ import static sorcer.eo.operator.in;
 import static sorcer.eo.operator.sig;
 import static sorcer.eo.operator.task;
 import static sorcer.eo.operator.srv;
+import static sorcer.eo.operator.value;
 
 import java.rmi.RMISecurityManager;
 import java.util.logging.Logger;
@@ -44,14 +45,14 @@ public class StringerTestPro implements SorcerConstants {
 		
 		logger.info("Test stringer set one'a");
 		
-		Task t1 = srv(
+		Task t1 = task(
 				"t1",
 				sig("toUpperCase", StringerSetOneProvider.class, "StringerSetOneProvider"),
-				context("string1", in("toupper/string1", "kuku")));
+				context("toupper", in("toupper/string1", "kuku")));
 		logger.info("Task1: "+t1.getContext());
-		t1 = exert(t1);
+		t1 = (Task) value(t1);
 		logger.info("t1 context: "+context(t1));
-		//logger.info("t1 value: "+get(t1, "toupper/string1/result"));
+		logger.info("t1 value: "+get(t1, "toupper/string1/result"));
 		/*
 		Task t2 = task(
 				"ToLower",
